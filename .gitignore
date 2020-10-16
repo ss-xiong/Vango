@@ -1,0 +1,12 @@
+node_modules
+build
+dist
+.DS_Store
+.tern-project
+.idea/
+*.log
+doc
+*.lock
+mock2easy
+build.sh
+.vscode

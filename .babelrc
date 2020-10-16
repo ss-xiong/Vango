@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["@babel/preset-env", { "modules": false, "useBuiltIns": "entry", "corejs": 3 }], // 关闭babel转换模块语句，以免webpack tree-sharking失效
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    "@babel/plugin-proposal-object-rest-spread",
+    ["@babel/plugin-transform-runtime", { "corejs": 3 }], // 使用transform进行转换
+    ["@babel/plugin-proposal-decorators", { "legacy": true }], // 支持装饰器语法
+    ["@babel/plugin-proposal-class-properties", { "loose": true }] // 支持类属性写法
+  ]
+}
