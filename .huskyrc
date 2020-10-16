@@ -1,0 +1,6 @@
+{
+  "hooks": {
+    "commit-msg": "validate-commit-msg",
+    "pre-commit": "yarn run lint:ts && yarn run lint:style"
+  }
+}
