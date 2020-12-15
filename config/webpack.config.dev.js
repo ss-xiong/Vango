@@ -1,5 +1,8 @@
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
+// Drar-sass 配置
+const Sass = require('sass');
+const Fibers = require('fibers');
 
 const baseConfig = require('./webpack.config.base'); // 基础 webpack 配置
 const { distDir } = require('./foldConfig'); // 目录解析配置
@@ -37,7 +40,15 @@ module.exports = merge(baseConfig, {
             },
           },
           'postcss-loader',
-          'sass-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: Sass,
+              sassOptions: {
+                filer: Fibers,
+              },
+            },
+          },
         ],
       },
       {

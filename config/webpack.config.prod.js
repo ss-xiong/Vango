@@ -5,6 +5,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 提取出CSS
 const TerserWebpackPlugin = require('terser-webpack-plugin'); // 配置压缩JS
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩CSS
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
+// Drar-sass 配置
+const Sass = require('sass');
+const Fibers = require('fibers');
 // 基础 webpack 配置
 const baseConfig = require('./webpack.config.base');
 
@@ -25,7 +28,15 @@ module.exports = merge(baseConfig, {
             },
           },
           'postcss-loader',
-          'sass-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: Sass,
+              sassOptions: {
+                filer: Fibers,
+              },
+            },
+          },
         ],
       },
       // 图片加载
