@@ -50,7 +50,7 @@
     "paths": {
       "@Components/*": ["components/*"],
       "@Containers/*": ["containers/*"],
-      "@Veiws/*": ["views/*"],
+      "@Views/*": ["views/*"],
       "@Models/*": ["models/*"],
       "@Routes/*": ["routes/*"],
       "@Assets/*": ["assets/*"],
