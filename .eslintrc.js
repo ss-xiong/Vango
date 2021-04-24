@@ -24,7 +24,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       webpack: {
-        config: './config/webpack.config.beta.js',
+        config: './webpack.config.js',
       },
     },
   },
@@ -48,5 +48,9 @@ module.exports = {
         tsx: 'never',
       },
     }],
+    // 可点击元素不是必须有key事件
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'react/static-property-placement': 'off', // static属性必须定义子在类名已外
   },
 };

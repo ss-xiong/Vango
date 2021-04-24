@@ -50,7 +50,8 @@
     "paths": {
       "@Components/*": ["components/*"],
       "@Containers/*": ["containers/*"],
-      "@Veiws/*": ["views/*"],
+      "@Views/*": ["views/*"],
+      "@Styles/*": ["styles/*"],
       "@Models/*": ["models/*"],
       "@Routes/*": ["routes/*"],
       "@Assets/*": ["assets/*"],
@@ -79,9 +80,8 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
   },
   "include": [
-    "src",
-    "types/file.d.ts",
-    "types/style.d.ts"
+    "src/**/*",
+    "types/typings.d.ts"
   ],
   "exclude": [
     "node_modules",
