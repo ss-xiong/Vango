@@ -51,9 +51,9 @@
       "@Components/*": ["components/*"],
       "@Containers/*": ["containers/*"],
       "@Views/*": ["views/*"],
-      "@Styles/*": ["styles/*"],
       "@Models/*": ["models/*"],
       "@Routes/*": ["routes/*"],
+      "@Styles/*": ["styles/*"],
       "@Assets/*": ["assets/*"],
       "@Utils/*": ["utils/*"],
     },                                        /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
