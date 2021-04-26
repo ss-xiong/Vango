@@ -6,19 +6,21 @@ import {
   Route,
 } from 'react-router-dom';
 
-import DataListsPage from '@Views/dataListsPage';
-import DataLabelsPage from '@Views/dataLabelsPage';
+import { IndexPage } from '@Views/IndexPage';
+import { ListPage } from '@Views/ListPage';
 
 const AppRouter: React.FC = () => (
   <Router>
     <Route exact path="/">
-      <Redirect to="/data-lists" />
+      <Redirect to="/index" />
     </Route>
     <Switch>
-      <Route path="/data-lists" component={DataListsPage} />
-      <Route path="/data-labels" component={DataLabelsPage} />
+      <Route exact path="/index" component={IndexPage} />
+      <Route exact path="/list" component={ListPage} />
     </Switch>
   </Router>
 );
 
-export default AppRouter;
+export {
+  AppRouter,
+};

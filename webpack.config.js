@@ -147,10 +147,10 @@ module.exports = {
       '@Components': resolver(foldConfig.srcDir, 'components'),
       '@Containers': resolver(foldConfig.srcDir, 'containers'),
       '@Views': resolver(foldConfig.srcDir, 'views'),
+      '@Redux': resolver(foldConfig.srcDir, 'redux'),
       '@Styles': resolver(foldConfig.srcDir, 'styles'),
-      '@Models': resolver(foldConfig.srcDir, 'models'),
       '@Routes': resolver(foldConfig.srcDir, 'routes'),
-      '@Assets': resolver(foldConfig.rootDir, 'assets'),
+      '@Assets': resolver(foldConfig.srcDir, 'assets'),
       '@Utils': resolver(foldConfig.srcDir, 'utils'),
     },
   },
@@ -202,9 +202,6 @@ module.exports = {
             loader: 'css-loader',
             options: {
               sourceMap: !isProd,
-              modules: {
-                localIdentName: isDev ? '[path][name]__[local]-[hash:base64:5]' : '[hash:base64]',
-              },
             },
           },
           'postcss-loader',

@@ -3,5 +3,12 @@
     "stylelint-config-standard",
     "stylelint-config-sass-guidelines",
     "prettier-stylelint"
-  ]
+  ],
+  "rules": {
+    "scss/at-import-no-partial-leading-underscore": null,
+    "order/properties-alphabetical-order": null,
+    "declaration-empty-line-before": null,
+    "selector-class-pattern": null,
+    "max-nesting-depth": null,
+  }
 }

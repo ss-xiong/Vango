@@ -7,17 +7,19 @@ Webpack4配置React通用开发模板，webpack配置外露可个性化更改也
 项目使用React，支持TypeScript、Eslint、stylelint等
 
 ## Project Documents
-项目相关文档，包含：GIT地址、PRD文档地址、BRD文档地址、设计稿文档地址等
+项目相关文档，包含：git地址、PRD文档地址、BRD文档地址、设计稿文档地址等
+* 代码仓库：[*](*)
+* PRD 文档：[*](*)
+* 设计稿链接：[*](*)
+* 图标库地址：[*](*)
 
 ## Development Documents
-项目整体框架采用React + Dva，开发配置包括TypeScript+Webpack+Scss等。
-开发相关文档，包括但不限于以下点：
-1. 版本更新介绍
-2. 开发环境配置
-3. 重点功能介绍
-以下内容为本项目开发文档，使用此模板后需更新为新项目相关文档
+项目整体框架采用React + redux，开发配置包括TypeScript+Webpack+Scss等
 
-### 一、Webpack打包配置
+### 一、设计思路
+* 自建打包配置：配置完全透出，满足灵活性需求，便于任何维度的自定义。
+
+### 二、Webpack打包配置
 1. 优化点：
   * 打包添加代码拆分 
   * 配置路由动态加载
@@ -25,11 +27,16 @@ Webpack4配置React通用开发模板，webpack配置外露可个性化更改也
   * 预发环境环境添加sourceMap，方便定位问题
 2. 使用方式：
   * 开发环境：`npm start`, 支持热替换
-  * 预发环境：`npm run build:beta`, 文件在生成于dist目录下
+  * 预发环境：`npm run build:beta`, 预发环境打包完毕后会打开性能分析页面，建议上线前确认模块拆分粒度
   * 生产环境：`npm run build:prod`, 文件在生成于dist目录下
 
-### 二、Commit规范与发版日志(参考[Commit message 和 Change log 编写指南](https://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html))
+### 三、开发规约
+* components: 展示组件，包含样式、交互、与上级数据交互
+* containers: 容器组件，连接 Redux、父级组件输入
+* 文件结构：全局组件，全局容器，页面-> (页面组件, 页面容器)
+* CSS 类名：顶层(框架三层)类名必须采用 BEM(Block__Element--Modifier) 方式，三层以内可自定义
 
+### 四、Commit规范与发版日志(参考[Commit message 和 Change log 编写指南](https://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html))
 #### 1. Commit 规范
 git 可以帮我们很好地管理代码，但是在多人合作的时候，经常会碰到各种随意的 commit message，当你需要会看 commit message 的时候，就会很头疼。首先来看一下被业界广泛认可的 Angular commit message规范：
 ```xml

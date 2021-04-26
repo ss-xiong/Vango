@@ -1,0 +1,28 @@
+
+// cover 背景
+@mixin bg-cover ($image-src: '') {
+  @if $image-src != '' {
+    background-image: url($image-src);
+  }
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+// contain 背景
+@mixin bg-contain ($image-src: '') {
+  @if $image-src != '' {
+    background-image: url($image-src);
+  }
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+// 正方形
+@mixin squr($width) {
+  width: $width;
+  height: $width;
+}

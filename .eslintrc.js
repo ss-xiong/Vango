@@ -52,5 +52,6 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
     'react/static-property-placement': 'off', // static属性必须定义子在类名已外
+    'import/prefer-default-export': 'off', // 不使用默认导出
   },
 };

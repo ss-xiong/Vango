@@ -1,0 +1,18 @@
+// 动画
+
+// 展示隐藏主要动画
+@mixin animation-main {
+  animation: animation-main 0.5s;
+
+  @keyframes animation-main {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

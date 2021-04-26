@@ -1,0 +1,5 @@
+@import '@Styles/flex.scss';
+
+.ListPage {
+  @include flex-row-center;
+}

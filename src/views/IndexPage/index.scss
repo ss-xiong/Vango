@@ -1,0 +1,5 @@
+@import '@Styles/flex.scss';
+
+.IndexPage {
+  @include flex-row-center;
+}

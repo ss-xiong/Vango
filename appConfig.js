@@ -9,7 +9,7 @@ module.exports = {
     distDir: path.resolve(__dirname, './dist'), // dist 目录
   },
   htmlConfig: {
-    title: '梵高-React 开发模板',
+    title: '梵高-智能绘制中心',
   },
   buildConfig: {
     buildGzip: false,

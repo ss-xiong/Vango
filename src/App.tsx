@@ -1,14 +1,19 @@
 import * as React from 'react';
-import CSSModules from 'react-css-modules';
+import { Provider } from 'react-redux';
 
-import AppRouter from '@Routes/appRouter';
+import { AppRouter } from '@Routes/appRouter';
+import { appStore } from '@Redux/store';
 
-import styles from './App.scss';
+import './App.scss';
 
 const App: React.FC = () => (
-  <div styleName="title">
-    <AppRouter />
-  </div>
+  <Provider store={appStore}>
+    <div className="App">
+      <AppRouter />
+    </div>
+  </Provider>
 );
 
-export default CSSModules(App, styles);
+export {
+  App,
+};
