@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable arrow-body-style */
+const fs = require('fs');
 const path = require('path');
 const process = require('process');
 const webpack = require('webpack');
@@ -12,12 +13,14 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); /
 const CompressionWebpackPlugin = require('compression-webpack-plugin'); // 压缩代码
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer'); // 打包分析
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // 清空打包文件夹
+const apiMocker = require('mocker-api'); // mock 请求数据
 
 // 加载目录配置
 const {
   foldConfig,
-  htmlConfig,
   buildConfig,
+  htmlConfig = {},
+  requestConfig = {},
 } = require('./appConfig'); // 加载配置
 
 // 解析目录
@@ -74,12 +77,12 @@ const buildPlugins = () => {
   // 基础插件
   const configPlugins = [
     new HtmlWebpackPlugin({
+      ...htmlConfig,
       template: resolver(foldConfig.rootDir, 'public/index.html'),
       filename: 'index.html',
-      title: htmlConfig.title,
     }),
     new WebpackBuildNotifierPlugin({
-      title: htmlConfig.title,
+      ...htmlConfig,
       logo: resolver(foldConfig.rootDir, 'public/favicon.ico'),
       suppressWarning: true,
     }),
@@ -119,6 +122,59 @@ const buildPlugins = () => {
   return configPlugins;
 };
 
+// 开发服务器设置
+const buildDevServer = () => {
+  if (!isDev) {
+    return {};
+  }
+
+  // 自定义配置
+  const { useMock = false, proxy = {} } = requestConfig
+  // 基础配置
+  const baseDevServerConfig = {
+    contentBase: [foldConfig.distDir], // 打包后文件位置
+    clientLogLevel: 'silent', // 打印日志级别，有错误时显示
+    stats: 'errors-warnings', // 打包控制台不显示文件细节
+    compress: false, // 开发环境不启用压缩
+    port: 8000, // 端口
+    overlay: true, // 展示错误蒙层
+    hot: true, // 启用热替换
+    hotOnly: true, // 编译成功后刷新
+    open: false, // 是否自动打开浏览器
+    host: '0.0.0.0', // 允许通过ip访问
+    disableHostCheck: true, // 解决 127.0.0.1 指向其他域名错误
+    historyApiFallback: {
+      index: '/',
+    },
+  };
+
+  if (useMock) {
+    // 获取所有 mock 数据文件
+    const mockFolder = resolver(foldConfig.rootDir, 'mock/');
+    const mockFoldFiles = fs.readdirSync(mockFolder);
+    const mockerFiles = mockFoldFiles.filter(
+      (fileName) => /\**.mock.js$/.test(fileName),
+    ).map(
+      (fileName) => path.join(mockFolder, fileName),
+    );
+
+    return {
+      ...baseDevServerConfig,
+      before(app) {
+        apiMocker(app, mockerFiles, {
+          proxy, // 自定义 proxy 配置
+          changeHost: true,
+        });
+      },
+    };
+  }
+
+  return {
+    proxy,
+    ...baseDevServerConfig,
+  };
+};
+
 module.exports = {
   mode: isDev ? 'development' : 'production', // 预发和生产需要设置为生产环境
   devtool: isDev ? '#eval-source-map' : (isBeta && 'source-map'),
@@ -147,8 +203,10 @@ module.exports = {
       '@Components': resolver(foldConfig.srcDir, 'components'),
       '@Containers': resolver(foldConfig.srcDir, 'containers'),
       '@Views': resolver(foldConfig.srcDir, 'views'),
+      '@Api': resolver(foldConfig.srcDir, 'api'),
       '@Redux': resolver(foldConfig.srcDir, 'redux'),
       '@Styles': resolver(foldConfig.srcDir, 'styles'),
+      '@Models': resolver(foldConfig.srcDir, 'models'),
       '@Routes': resolver(foldConfig.srcDir, 'routes'),
       '@Assets': resolver(foldConfig.srcDir, 'assets'),
       '@Utils': resolver(foldConfig.srcDir, 'utils'),
@@ -233,20 +291,5 @@ module.exports = {
   // 开发环境不需要优化配置
   optimization: !isDev ? buildOptimization() : {},
   plugins: buildPlugins(),
-  devServer: isDev ? {
-    contentBase: [foldConfig.distDir], // 打包后文件位置
-    clientLogLevel: 'silent', // 打印日志级别，有错误时显示
-    stats: 'errors-warnings', // 打包控制台不显示文件细节
-    compress: false, // 开发环境不启用压缩
-    port: 8000, // 端口
-    overlay: true, // 展示错误蒙层
-    hot: true, // 启用热替换
-    hotOnly: true, // 编译成功后刷新
-    open: false, // 是否自动打开浏览器
-    host: '0.0.0.0', // 允许通过ip访问
-    disableHostCheck: true, // 解决 127.0.0.1 指向其他域名错误
-    historyApiFallback: {
-      index: '/',
-    },
-  } : {},
+  devServer: buildDevServer(),
 };
